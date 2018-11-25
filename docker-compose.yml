@@ -1,0 +1,15 @@
+version: '3'
+services:
+  7dtd:
+    build:
+      context: .
+    container_name: 7dtd
+    image: 7dtd:latest
+    restart: unless-stopped
+    ports:
+      - "8080-8082:8080-8082/tcp"
+      - "26900-26903:26900-26903/udp"
+      - "26900:26900/tcp"
+      - "27000-27099:27000-27099/udp"
+    volumes:
+      - /steamcmd/7dtd_serverx:/data
