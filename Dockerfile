@@ -24,6 +24,8 @@ RUN mkdir -p /root/.local/share/7DaysToDie/Saves
 COPY serverconfig.xml ./steamcmd/7dtd_server
 COPY serveradmin.xml /root/.local/share/7DaysToDie/Saves/
 
+VOLUME ["/steamcmd/7dtd_server/data"]
+
 EXPOSE 8080-8082/tcp
 EXPOSE 26900/tcp
 EXPOSE 26900-26903/udp
