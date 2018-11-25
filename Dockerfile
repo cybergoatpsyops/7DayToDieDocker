@@ -5,33 +5,33 @@ MAINTAINER cyberGoatPsyOps
 RUN dpkg --add-architecture i386 && apt-get update && apt-get install -q -y wget lib32gcc1 telnet
 
 # Create workspace for server
-WORKDIR /home/steam
+WORKDIR /home/
 
-# Downloading Steam cmd
+# Downloading Steamcmd and extract to steamcmd folder
 RUN wget http://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz
-RUN mkdir ./bin && tar -xvzf steamcmd_linux.tar.gz -C ./bin
+RUN mkdir ./steamcmd && tar -xvzf steamcmd_linux.tar.gz -C ./steamcmd
 
-# Downloading 7Days Server
-RUN mkdir -p /home/steam/server
-RUN /home/steam/bin/steamcmd.sh \
+# Downloading 7Days lastest experimental Server build
+RUN mkdir -p /home/steam/
+RUN /home/steamcmd/steamcmd.sh \
 	+login anonymous \
-	+force_install_dir /home/steam/server \
+	+force_install_dir /home/steamcmd/7dtd_server \
 	+app_update 294420 -validate -beta latest_experimental \
 	+quit
 
 # Copy serverconfig into dockercontainer
 RUN mkdir -p /root/.local/share/7DaysToDie/Saves
-COPY serverconfig.xml ./server
+COPY serverconfig.xml ./steamcmd/7dtd_server
 COPY serveradmin.xml /root/.local/share/7DaysToDie/Saves/
 
-EXPOSE 8080/tcp 8081/tcp
-EXPOSE 26900-26903/tcp 26900-26903/udp
-EXPOSE 27000-27099/udp
+EXPOSE 8080-8082/tcp
+EXPOSE 26900/tcp
+EXPOSE 26900-26903/udp
+
 
 # Starting server on docker start
-CMD export LD_LIBRARY_PATH=/home/steam/server && \
-    /home/steam/server/7DaysToDieServer.x86_64 \
-	-configfile=/home/steam/server/serverconfig.xml \
-	-logfile /home/steam/server/output.log \
+CMD export LD_LIBRARY_PATH=/home/steamcmd/7dtd_server && \
+    /home/steamcmd/7days_server/7DaysToDieServer.x86_64 \
+	-configfile=/home/steamcmd/7dtd_server/serverconfig.xml \
+	-logfile /home/steamcmd/7dtd_server/output.log \
 	-quit -batchmode -nographics -dedicated $@
-
