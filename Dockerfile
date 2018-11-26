@@ -29,6 +29,7 @@ VOLUME ["/steamcmd/7dtd_server/data"]
 EXPOSE 8080-8082/tcp
 EXPOSE 26900/tcp
 EXPOSE 26900-26903/udp
+EXPOSE 27000-27099/udp
 
 
 # Starting server on docker start
