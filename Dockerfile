@@ -33,7 +33,7 @@ EXPOSE 26900-26903/udp
 
 # Starting server on docker start
 CMD export LD_LIBRARY_PATH=/home/steamcmd/7dtd_server && \
-    /home/steamcmd/7days_server/7DaysToDieServer.x86_64 \
+    /home/steamcmd/7dtd_server/7DaysToDieServer.x86_64 \
 	-configfile=/home/steamcmd/7dtd_server/serverconfig.xml \
 	-logfile /home/steamcmd/7dtd_server/output.log \
 	-quit -batchmode -nographics -dedicated $@
