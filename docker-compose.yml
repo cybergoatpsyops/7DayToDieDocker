@@ -12,4 +12,4 @@ services:
       - "26900:26900/tcp"
       - "27000-27099:27000-27099/udp"
     volumes:
-      - /steamcmd/7dtd_serverx:/data
+      - /steamcmd/7dtd_server:/data
